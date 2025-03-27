@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-@export var fell_off_y float: 800.0
+@export var fell_off_y: float = 800.0
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug_label: Label = $DebugLabel
 
@@ -10,10 +10,10 @@ const GRAVITY: float = 690.0
 const JUMP_FORCE: float = -300.0
 const MOVE_FORCE: float = 120.0
 const MAX_FALL : float = 350.0 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
+	
+func _enter_tree() -> void:
+	add_to_group(Constants.PLAYER_GROUP)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
