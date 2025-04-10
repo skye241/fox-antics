@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8pfuvo43a833"]
+
+[ext_resource type="LabelSettings" uid="uid://2d0rpf4iebv2" path="res://resources/pink_96.tres" id="1_3j056"]
+[ext_resource type="LabelSettings" uid="uid://crl5qp4rubl61" path="res://resources/white_48.tres" id="2_sseyc"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.00392157, 0.0980392, 1)
+
+[node name="VBoxGameOver" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -75.0
+offset_right = 255.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxGameOver"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "game over"
+label_settings = ExtResource("1_3j056")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxGameOver"]
+visible = false
+layout_mode = 2
+text = "Press Shoot"
+label_settings = ExtResource("2_sseyc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxGameComplete" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -75.0
+offset_right = 255.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxGameComplete"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Level Complete"
+label_settings = ExtResource("1_3j056")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxGameComplete"]
+visible = false
+layout_mode = 2
+text = "Press Shoot"
+label_settings = ExtResource("2_sseyc")
+horizontal_alignment = 1
+vertical_alignment = 1

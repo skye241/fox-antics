@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c22a4g12vwrr"]
+[gd_scene load_steps=5 format=3 uid="uid://c22a4g12vwrr"]
 
 [ext_resource type="Script" uid="uid://dcurf0bmejx1b" path="res://scenes/hud/hud.gd" id="1_c45xl"]
 [ext_resource type="LabelSettings" uid="uid://crl5qp4rubl61" path="res://resources/white_48.tres" id="1_cgeww"]
 [ext_resource type="Texture2D" uid="uid://c3l05f7ndkjps" path="res://assets/items/pixel heart 2.png" id="3_mgtrf"]
+[ext_resource type="LabelSettings" uid="uid://2d0rpf4iebv2" path="res://resources/pink_96.tres" id="4_0bx4p"]
 
 [node name="Hud" type="Control"]
+process_mode = 3
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -30,41 +32,118 @@ size_flags_horizontal = 0
 text = "00000"
 label_settings = ExtResource("1_cgeww")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxHearts" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="H1" type="TextureRect" parent="MarginContainer/HBoxContainer2"]
+[node name="H1" type="TextureRect" parent="MarginContainer/HBoxHearts"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_mgtrf")
 stretch_mode = 4
 
-[node name="H2" type="TextureRect" parent="MarginContainer/HBoxContainer2"]
+[node name="H2" type="TextureRect" parent="MarginContainer/HBoxHearts"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_mgtrf")
 stretch_mode = 4
 
-[node name="H3" type="TextureRect" parent="MarginContainer/HBoxContainer2"]
+[node name="H3" type="TextureRect" parent="MarginContainer/HBoxHearts"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_mgtrf")
 stretch_mode = 4
 
-[node name="H4" type="TextureRect" parent="MarginContainer/HBoxContainer2"]
+[node name="H4" type="TextureRect" parent="MarginContainer/HBoxHearts"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_mgtrf")
 stretch_mode = 4
 
-[node name="H5" type="TextureRect" parent="MarginContainer/HBoxContainer2"]
+[node name="H5" type="TextureRect" parent="MarginContainer/HBoxHearts"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_mgtrf")
 stretch_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.00392157, 0.0980392, 1)
+
+[node name="VBoxGameOver" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -75.0
+offset_right = 255.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxGameOver"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "game over"
+label_settings = ExtResource("4_0bx4p")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxGameOver"]
+visible = false
+layout_mode = 2
+text = "Press Shoot"
+label_settings = ExtResource("1_cgeww")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxGameComplete" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -75.0
+offset_right = 255.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxGameComplete"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Level Complete"
+label_settings = ExtResource("4_0bx4p")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxGameComplete"]
+visible = false
+layout_mode = 2
+text = "Press Shoot"
+label_settings = ExtResource("1_cgeww")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CompleteTimer" type="Timer" parent="."]
+one_shot = true

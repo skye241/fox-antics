@@ -4,7 +4,10 @@ class_name Player
 const JUMP = preload("res://assets/sound/jump.wav")
 const DAMAGE = preload("res://assets/sound/damage.wav")
 
-@export var fell_off_y: float = 800.0
+@export var fell_off_y: float = 600.0
+@export var lives: int = 3
+
+
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug_label: Label = $DebugLabel
 @onready var shooter: Shooter = $Shooter
@@ -19,7 +22,15 @@ const HURT_JUMP_VELOCITY: Vector2 = Vector2(0, -130.0)
 
 var _is_hurt: bool = false
 var _invincible: bool = false
+
+func _ready() -> void:
+	call_deferred("late_init")
 	
+	
+func late_init() -> void:
+	SignalHub.emit_on_player_hit(lives, false)
+
+
 func _enter_tree() -> void:
 	add_to_group(Constants.PLAYER_GROUP)
 
@@ -49,6 +60,8 @@ func play_effect(effect: AudioStream) -> void:
 	sound.stop()
 	sound.stream = effect
 	sound.play()
+	
+	
 func shoot() -> void:
 	if Input.is_action_just_pressed("shoot"):
 		var dir : Vector2 = Vector2.LEFT if sprite_2d.flip_h else Vector2.RIGHT
@@ -75,8 +88,11 @@ func update_debug_label() -> void:
 	
 
 func fallen_off() -> void:
-	if global_position.y > fell_off_y:
-		queue_free()
+	if global_position.y < fell_off_y:
+		return
+	
+	reduce_lives(lives)
+	
 		
 
 func go_invincible() -> void:
@@ -91,7 +107,17 @@ func go_invincible() -> void:
 		tween.tween_property(sprite_2d, "modulate", Color("#ffffff", 1.0), 0.5)
 		
 	tween.tween_property(self, "_invincible",false, 0)
- 	
+
+func reduce_lives(reduction: int) -> bool:
+	lives -= reduction
+	SignalHub.emit_on_player_hit(lives, true)
+	
+	if lives <= 0:
+		set_physics_process(false)
+		return false
+	else:
+		return true
+	
 func apply_hurt_jump() -> void:
 	_is_hurt = true
 	velocity = HURT_JUMP_VELOCITY
@@ -102,6 +128,10 @@ func apply_hurt_jump() -> void:
 func apply_hit() -> void:
 	if _invincible:
 		return
+	
+	#If you died when hit
+	if not reduce_lives(1):
+		return 
 	
 	go_invincible()
 	apply_hurt_jump()

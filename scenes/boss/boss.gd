@@ -54,6 +54,7 @@ func reduce_lives() -> void:
 	lives -= 1
 	if lives <= 0:
 		SignalHub.emit_on_scored(points)
+		SignalHub.emit_on_boss_killed()
 		queue_free()
 
 func _on_trigger_area_entered(area: Area2D) -> void:

@@ -17,4 +17,5 @@ func set_scores() -> void:
 		grid_container.add_child(hsdi)
 
 func _ready() -> void:
+	get_tree().paused = false
 	set_scores()
