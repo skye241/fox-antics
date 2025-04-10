@@ -3,10 +3,9 @@
 [ext_resource type="Script" uid="uid://dxtcfma6wwce3" path="res://scenes/level_base/level_base.gd" id="1_kr674"]
 [ext_resource type="Texture2D" uid="uid://dsa6bv5kx68fo" path="res://assets/tiles/Terrain (16x16).png" id="1_myc1q"]
 [ext_resource type="PackedScene" uid="uid://bpn1xiwdi5qfe" path="res://scenes/player/player.tscn" id="2_u6jkd"]
-[ext_resource type="PackedScene" uid="uid://bx5fnm1awrbip" path="res://scenes/floor_spikes/floor_spikes.tscn" id="7_48c0a"]
+[ext_resource type="PackedScene" uid="uid://bpgs1o0pv3vhe" path="res://scenes/ball_spikes/ball_spikes.tscn" id="7_48c0a"]
 [ext_resource type="PackedScene" uid="uid://cy8o7aoighlor" path="res://scenes/object_maker/object_maker.tscn" id="7_p2h7h"]
 [ext_resource type="AudioStream" uid="uid://pq6k868kgwsn" path="res://assets/sound/Farm Frolics.ogg" id="8_48c0a"]
-[ext_resource type="PackedScene" uid="uid://renq0f0422lv" path="res://scenes/boss/boss.tscn" id="8_cr6la"]
 [ext_resource type="PackedScene" uid="uid://c22a4g12vwrr" path="res://scenes/hud/hud.tscn" id="9_cr6la"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_myc1q"]
@@ -257,6 +256,12 @@ terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.894118, 1)
 sources/0 = SubResource("TileSetAtlasSource_u6jkd")
 pattern_0 = SubResource("TileMapPattern_myc1q")
 
+[sub_resource type="Curve2D" id="Curve2D_cr6la"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 427, -72, 0, 0, 0, 0, 386, -36, 0, 0, 0, 0, 425, 18, 0, 0, 0, 0, 521, 20, 0, 0, 0, 0, 512, -40, 0, 0, 0, 0, 433, -75)
+}
+point_count = 6
+
 [node name="LevelBase" type="Node2D"]
 script = ExtResource("1_kr674")
 
@@ -270,7 +275,7 @@ position = Vector2(217, 2)
 
 [node name="ObjectMaker" parent="." instance=ExtResource("7_p2h7h")]
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_48c0a")
 volume_db = -10.0
 autoplay = true
@@ -282,15 +287,8 @@ parameters/looping = true
 
 [node name="BallSpikesHolder" type="Node" parent="."]
 
-[node name="MovingPlatform" type="Node" parent="."]
+[node name="Path2D" type="Path2D" parent="BallSpikesHolder"]
+curve = SubResource("Curve2D_cr6la")
 
-[node name="FloorSpikes" type="Node" parent="."]
-
-[node name="FloorSpikes" parent="FloorSpikes" instance=ExtResource("7_48c0a")]
-position = Vector2(329, 160)
-
-[node name="FloorSpikes2" parent="FloorSpikes" instance=ExtResource("7_48c0a")]
-position = Vector2(345, 160)
-
-[node name="Boss" parent="." instance=ExtResource("8_cr6la")]
-position = Vector2(748, 161)
+[node name="BallSpikes" parent="BallSpikesHolder/Path2D" instance=ExtResource("7_48c0a")]
+position = Vector2(427, -72)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp3x7uh4r73cw"]
+
+[ext_resource type="Script" uid="uid://cmin4uv7wpt4n" path="res://scenes/life_timer/life_timer.gd" id="1_g3htm"]
+
+[node name="LifeTimer" type="Node"]
+script = ExtResource("1_g3htm")

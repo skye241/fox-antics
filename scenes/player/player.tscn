@@ -1,8 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://bpn1xiwdi5qfe"]
+[gd_scene load_steps=35 format=3 uid="uid://bpn1xiwdi5qfe"]
 
 [ext_resource type="Texture2D" uid="uid://c0m616bchurua" path="res://assets/player/player.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://rr7cq3303kqu" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="PackedScene" uid="uid://c5crxymnxyds8" path="res://scenes/player_cam/player_camera.tscn" id="3_gmlin"]
+[ext_resource type="PackedScene" uid="uid://bxllkd3i5gh7k" path="res://scenes/shooter/shooter.tscn" id="4_lvxji"]
+[ext_resource type="AudioStream" uid="uid://d4mqebouafpcd" path="res://assets/sound/jump.wav" id="5_p47bc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
 radius = 8.0
@@ -172,11 +174,8 @@ states/run/position = Vector2(480.52, 98.3375)
 transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_0owmy"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_qek5x"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_je7p5")]
 graph_offset = Vector2(-96.48, 23.175)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h17s1"]
-animation = &"fall"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_je7p5"]
-animation = &"jump"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0owmy"]
+animation = &"hurt"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fm80t"]
 advance_mode = 2
@@ -189,18 +188,31 @@ advance_expression = "!is_on_floor()"
 advance_mode = 2
 advance_expression = "is_on_floor()"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h17s1"]
+advance_mode = 2
+advance_expression = "_is_hurt == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gx1jg"]
+advance_mode = 2
+advance_expression = "_is_hurt == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ugbui"]
+advance_mode = 2
+advance_expression = "_is_hurt == false"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0owmy"]
 states/Air/node = SubResource("AnimationNodeStateMachine_h17s1")
-states/Air/position = Vector2(446.455, 201.785)
+states/Air/position = Vector2(650.455, 88.7888)
 states/Grounded/node = SubResource("AnimationNodeStateMachine_5gtgg")
 states/Grounded/position = Vector2(430.795, 88.7888)
 states/Start/position = Vector2(242, 97.6444)
-states/fall/node = SubResource("AnimationNodeAnimation_h17s1")
-states/fall/position = Vector2(642.805, 147.385)
-states/jump/node = SubResource("AnimationNodeAnimation_je7p5")
-states/jump/position = Vector2(640.815, 68.355)
-transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_fm80t"), "Grounded", "Air", SubResource("AnimationNodeStateMachineTransition_gmlin"), "Air", "Grounded", SubResource("AnimationNodeStateMachineTransition_lvxji")]
+states/hurt/node = SubResource("AnimationNodeAnimation_0owmy")
+states/hurt/position = Vector2(537.475, 194.185)
+transitions = ["Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_fm80t"), "Grounded", "Air", SubResource("AnimationNodeStateMachineTransition_gmlin"), "Air", "Grounded", SubResource("AnimationNodeStateMachineTransition_lvxji"), "Grounded", "hurt", SubResource("AnimationNodeStateMachineTransition_h17s1"), "Air", "hurt", SubResource("AnimationNodeStateMachineTransition_gx1jg"), "hurt", "Grounded", SubResource("AnimationNodeStateMachineTransition_ugbui")]
 graph_offset = Vector2(-53.5253, 16.185)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
+size = Vector2(13, 22)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
@@ -238,3 +250,24 @@ theme_override_font_sizes/font_size = 96
 text = "0000
 00000
 0000"
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-0.5, 5)
+shape = SubResource("RectangleShape2D_gmlin")
+
+[node name="Shooter" parent="." instance=ExtResource("4_lvxji")]
+speed = 250.0
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_p47bc")
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]

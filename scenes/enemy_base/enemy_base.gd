@@ -17,12 +17,15 @@ func _ready() -> void:
 	if !_player_ref:
 		queue_free()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if global_position.y > FALL_OFF_Y:
 		queue_free()
 		
 
 func die() -> void: 
+	SignalHub.emit_on_create_object(global_position, Constants.ObjectType.EXPLOSION)
+	SignalHub.emit_on_create_object(global_position, Constants.ObjectType.PICKUP)
+	SignalHub.emit_on_scored(points)
 	set_physics_process(false)
 	queue_free()
 
@@ -31,5 +34,5 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	pass # Replace with function body.
 
 
-func _on_hit_box_area_entered(area: Area2D) -> void:
+func _on_hit_box_area_entered(_area: Area2D) -> void:
 	die() # Replace with function body.
