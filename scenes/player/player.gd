@@ -6,6 +6,8 @@ const DAMAGE = preload("res://assets/sound/damage.wav")
 
 @export var fell_off_y: float = 600.0
 @export var lives: int = 3
+@export var camera_min: Vector2 = Vector2(-10000, 10000 )
+@export var camera_max: Vector2 = Vector2(10000, -10000)
 
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -13,6 +15,7 @@ const DAMAGE = preload("res://assets/sound/damage.wav")
 @onready var shooter: Shooter = $Shooter
 @onready var sound: AudioStreamPlayer2D = $Sound
 @onready var hurt_timer: Timer = $HurtTimer
+@onready var player_camera: Camera2D = $PlayerCamera
 
 const GRAVITY: float = 690.0
 const JUMP_FORCE: float = -300.0
@@ -25,8 +28,17 @@ var _invincible: bool = false
 
 func _ready() -> void:
 	call_deferred("late_init")
+	set_camera_limits()
 	
+
+func set_camera_limits() -> void: 
+	player_camera.limit_bottom = camera_min.y
+	player_camera.limit_left = camera_min.x
+
+	player_camera.limit_top = camera_max.y
+	player_camera.limit_right = camera_max.x
 	
+
 func late_init() -> void:
 	SignalHub.emit_on_player_hit(lives, false)
 

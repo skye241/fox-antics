@@ -21,8 +21,7 @@ func _physics_process(delta: float) -> void:
 
 func shoot() -> void:
 	if player_detector.is_colliding():
-		var dir: Vector2 = global_position.direction_to(_player_ref.global_position)
-		shooter.shoot(dir)
+		shooter.shoot_at_player()
 	
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	animated_sprite_2d.play("fly")

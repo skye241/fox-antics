@@ -10,15 +10,7 @@ extends Node2D
 @onready var sm: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var visuals: Node2D = $Visuals
 
-var _player_ref: Player
 var _invincible: bool = false
-
-
-
-func _ready() -> void:
-	_player_ref = get_tree().get_first_node_in_group(Constants.PLAYER_GROUP)
-	if !_player_ref:
-		queue_free()# Replace with function body.
 
 
 
@@ -28,8 +20,7 @@ func activate_collision() -> void:
 	hitbox.set_deferred("monitorable", true)
 
 func shoot_player() -> void:
-	var dir: Vector2 = shooter.global_position.direction_to(_player_ref.global_position)
-	shooter.shoot(dir)
+	shooter.shoot_at_player()
 
 
 func tween_hit() -> void:

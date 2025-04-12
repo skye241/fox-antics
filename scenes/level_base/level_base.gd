@@ -1,5 +1,5 @@
 extends Node2D
 
 
-func _read() -> void:
+func _ready() -> void:
 	get_tree().paused = false

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c5crxymnxyds8"]
+[gd_scene format=3 uid="uid://bktcajf44fqwo"]
 
 [node name="PlayerCamera" type="Camera2D"]
 zoom = Vector2(2.3, 2.3)

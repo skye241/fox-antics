@@ -6,9 +6,10 @@ const MAIN = preload("res://Scenes/Main/Main.tscn")
 const LEVEL_BASE = preload("res://scenes/level_base/level_base.tscn")
 
 const Levels: Array[PackedScene] = [
-	 preload("res://scenes/level_base/level_base.tscn")
-	#preload("res://Scenes/LevelBase/Level1.tscn"),
-	#preload("res://Scenes/LevelBase/Level2.tscn")
+	 #preload("res://scenes/level_base/level_base.tscn")
+	 preload("res://scenes/level_base/level_1.tscn"),
+	 preload("res://scenes/level_base/level_2.tscn"),
+	
 ]
 
 const SCORES_PATH = "user://high_scores.tres"
@@ -49,7 +50,7 @@ func load_next_level():
 	_current_level += 1
 	if _current_level >= Levels.size():
 		_current_level = 0
-	get_tree().change_scene_to_packed(LEVEL_BASE)
+	get_tree().change_scene_to_packed(Levels[_current_level])
 	#get_tree().change_scene_to_packed(Levels[_current_level])
 
 

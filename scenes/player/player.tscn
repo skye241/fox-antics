@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c0m616bchurua" path="res://assets/player/player.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://rr7cq3303kqu" path="res://scenes/player/player.gd" id="1_dovo2"]
-[ext_resource type="PackedScene" uid="uid://c5crxymnxyds8" path="res://scenes/player_cam/player_camera.tscn" id="3_gmlin"]
+[ext_resource type="PackedScene" uid="uid://cv7fop3pcdtob" path="res://scenes/player_cam/player_cam.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://bxllkd3i5gh7k" path="res://scenes/shooter/shooter.tscn" id="4_lvxji"]
 [ext_resource type="AudioStream" uid="uid://d4mqebouafpcd" path="res://assets/sound/jump.wav" id="5_p47bc"]
 

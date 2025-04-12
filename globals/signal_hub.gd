@@ -2,6 +2,7 @@ extends Node
 
 signal on_boss_killed
 signal on_player_hit(lives:int, shake: bool)
+signal on_level_complete(complete: bool)
 
 signal on_create_bullet(
 	pos: Vector2, dir: Vector2, speed: float, 
@@ -29,3 +30,6 @@ func emit_on_boss_killed() -> void:
 	
 func emit_on_player_hit(lives:int, shake: bool) -> void:
 	on_player_hit.emit(lives, shake)
+	
+func emit_on_level_complete(complete: bool) -> void:
+	on_level_complete.emit(complete)
