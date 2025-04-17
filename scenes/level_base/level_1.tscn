@@ -1,17 +1,13 @@
-[gd_scene load_steps=8 format=4 uid="uid://bc1dkw0rp6tfr"]
+[gd_scene load_steps=9 format=4 uid="uid://bc1dkw0rp6tfr"]
 
 [ext_resource type="PackedScene" uid="uid://d13qf5mawqiq7" path="res://scenes/level_base/level_base.tscn" id="1_xhw65"]
 [ext_resource type="PackedScene" uid="uid://bpgs1o0pv3vhe" path="res://scenes/ball_spikes/ball_spikes.tscn" id="2_0j78r"]
 [ext_resource type="PackedScene" uid="uid://c1vdbuolwqm84" path="res://scenes/moving_platform/moving_platform.tscn" id="2_0l5kv"]
+[ext_resource type="PackedScene" uid="uid://bx5fnm1awrbip" path="res://scenes/floor_spikes/floor_spikes.tscn" id="2_ggaws"]
+[ext_resource type="Curve2D" uid="uid://ojbw0qxv2y1h" path="res://resources/straight_ballspikes.tres" id="3_stqo0"]
 [ext_resource type="PackedScene" uid="uid://davi4meq0pcsn" path="res://scenes/enemy_base/snail/snail.tscn" id="4_y0n2o"]
 [ext_resource type="PackedScene" uid="uid://df22664mv4u6k" path="res://scenes/enemy_base/frog/frog.tscn" id="5_l3ogg"]
 [ext_resource type="PackedScene" uid="uid://ll7mn56halkx" path="res://scenes/enemy_base/eagle/eagle.tscn" id="5_lni6i"]
-
-[sub_resource type="Curve2D" id="Curve2D_3v0iu"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 945, -511, 0, 0, 0, 0, 988, -348, 0, 0, 0, 0, 1059, -439, 0, 0, 0, 0, 1113, -345, 0, 0, 0, 0, 1185, -515, 0, 0, 0, 0, 945, -511, 0, 0, 0, 0, 945, -511)
-}
-point_count = 7
 
 [node name="Level1" instance=ExtResource("1_xhw65")]
 
@@ -24,27 +20,67 @@ position = Vector2(57, -22)
 lives = 5
 camera_min = Vector2(-10, 0)
 
+[node name="Hud" parent="CanvasLayer" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="FloorSpikes" type="Node" parent="." index="6"]
+
+[node name="FloorSpikes2" parent="FloorSpikes" index="0" instance=ExtResource("2_ggaws")]
+position = Vector2(385, -170)
+
+[node name="FloorSpikes9" parent="FloorSpikes" index="1" instance=ExtResource("2_ggaws")]
+position = Vector2(467, -11)
+
+[node name="FloorSpikes10" parent="FloorSpikes" index="2" instance=ExtResource("2_ggaws")]
+position = Vector2(451, -11)
+
+[node name="FloorSpikes11" parent="FloorSpikes" index="3" instance=ExtResource("2_ggaws")]
+position = Vector2(499, -11)
+
+[node name="FloorSpikes12" parent="FloorSpikes" index="4" instance=ExtResource("2_ggaws")]
+position = Vector2(483, -11)
+
+[node name="FloorSpikes3" parent="FloorSpikes" index="5" instance=ExtResource("2_ggaws")]
+position = Vector2(1374, -9)
+
+[node name="FloorSpikes4" parent="FloorSpikes" index="6" instance=ExtResource("2_ggaws")]
+position = Vector2(1358, -9)
+
+[node name="FloorSpikes5" parent="FloorSpikes" index="7" instance=ExtResource("2_ggaws")]
+position = Vector2(1406, -9)
+
+[node name="FloorSpikes6" parent="FloorSpikes" index="8" instance=ExtResource("2_ggaws")]
+position = Vector2(1390, -9)
+
+[node name="FloorSpikes7" parent="FloorSpikes" index="9" instance=ExtResource("2_ggaws")]
+position = Vector2(1438, -9)
+
+[node name="FloorSpikes8" parent="FloorSpikes" index="10" instance=ExtResource("2_ggaws")]
+position = Vector2(1422, -9)
+
 [node name="Path2D" type="Path2D" parent="BallSpikesHolder" index="0"]
-curve = SubResource("Curve2D_3v0iu")
+position = Vector2(1200, -400)
+curve = ExtResource("3_stqo0")
 
 [node name="BallSpikes" parent="BallSpikesHolder/Path2D" index="0" instance=ExtResource("2_0j78r")]
-position = Vector2(945, -511)
-speed = 65.0
+position = Vector2(7, -79)
 
-[node name="Path2D3" type="Path2D" parent="BallSpikesHolder" index="1"]
-position = Vector2(178, 2)
-curve = SubResource("Curve2D_3v0iu")
-
-[node name="BallSpikes" parent="BallSpikesHolder/Path2D3" index="0" instance=ExtResource("2_0j78r")]
-position = Vector2(945, -511)
-speed = 75.0
-
-[node name="Path2D2" type="Path2D" parent="BallSpikesHolder" index="2"]
-position = Vector2(81, 2)
-curve = SubResource("Curve2D_3v0iu")
+[node name="Path2D2" type="Path2D" parent="BallSpikesHolder" index="1"]
+position = Vector2(1314, -398)
+curve = ExtResource("3_stqo0")
 
 [node name="BallSpikes" parent="BallSpikesHolder/Path2D2" index="0" instance=ExtResource("2_0j78r")]
-position = Vector2(945, -511)
+position = Vector2(7, -79)
+
+[node name="Path2D3" type="Path2D" parent="BallSpikesHolder" index="2"]
+position = Vector2(1417, -398)
+curve = ExtResource("3_stqo0")
+
+[node name="BallSpikes" parent="BallSpikesHolder/Path2D3" index="0" instance=ExtResource("2_0j78r")]
+position = Vector2(7, -79)
 
 [node name="MovingPlatform" parent="MovingPlatform" index="0" node_paths=PackedStringArray("targets") instance=ExtResource("2_0l5kv")]
 position = Vector2(927, -312)
@@ -52,47 +88,43 @@ speed = 50.0
 targets = [NodePath("../Marker2D"), NodePath("../Marker2D2")]
 
 [node name="Marker2D" type="Marker2D" parent="MovingPlatform" index="1"]
-position = Vector2(920, -351)
+position = Vector2(926, -342)
 
 [node name="Marker2D2" type="Marker2D" parent="MovingPlatform" index="2"]
-position = Vector2(920, -214)
+position = Vector2(928, -195)
 
-[node name="Checkpoint" parent="." index="8"]
-position = Vector2(2035, -31)
+[node name="Checkpoint" parent="." index="9"]
+position = Vector2(2033, -8)
 
-[node name="Boss" parent="." index="9"]
-position = Vector2(1982, -36)
+[node name="Boss" parent="." index="10"]
+position = Vector2(1983, -15)
 
-[node name="Snail" parent="Enemies" index="0" instance=ExtResource("4_y0n2o")]
-position = Vector2(277, -18)
-
-[node name="Snail2" parent="Enemies" index="1" instance=ExtResource("4_y0n2o")]
-position = Vector2(523, -196)
-
-[node name="Snail3" parent="Enemies" index="2" instance=ExtResource("4_y0n2o")]
-position = Vector2(590, -19)
-
-[node name="Frog" parent="Enemies" index="3" instance=ExtResource("5_l3ogg")]
-position = Vector2(1299, -247)
-
-[node name="Frog2" parent="Enemies" index="4" instance=ExtResource("5_l3ogg")]
-position = Vector2(1494, -99)
-
-[node name="Eagle" parent="." index="11" instance=ExtResource("5_lni6i")]
-position = Vector2(808, -527)
-
-[node name="Eagle2" parent="." index="12" instance=ExtResource("5_lni6i")]
-position = Vector2(736, -583)
-fly_speed = Vector2(10, 10)
-
-[node name="Eagle3" parent="." index="13" instance=ExtResource("5_lni6i")]
+[node name="Eagle3" parent="Enemies" index="0" instance=ExtResource("5_lni6i")]
 position = Vector2(673, -519)
 fly_speed = Vector2(10, 0)
 
-[node name="Eagle4" parent="." index="14" instance=ExtResource("5_lni6i")]
-position = Vector2(1265, -679)
-fly_speed = Vector2(10, 0)
+[node name="Eagle2" parent="Enemies" index="1" instance=ExtResource("5_lni6i")]
+position = Vector2(736, -583)
+fly_speed = Vector2(10, 10)
 
-[node name="Eagle5" parent="." index="15" instance=ExtResource("5_lni6i")]
-position = Vector2(1797, -679)
-fly_speed = Vector2(10, 0)
+[node name="Eagle4" parent="Enemies" index="2" instance=ExtResource("5_lni6i")]
+position = Vector2(590, -462)
+fly_speed = Vector2(10, 10)
+
+[node name="Eagle" parent="Enemies" index="3" instance=ExtResource("5_lni6i")]
+position = Vector2(808, -527)
+
+[node name="Snail" parent="Enemies" index="4" instance=ExtResource("4_y0n2o")]
+position = Vector2(277, -18)
+
+[node name="Snail2" parent="Enemies" index="5" instance=ExtResource("4_y0n2o")]
+position = Vector2(523, -196)
+
+[node name="Snail3" parent="Enemies" index="6" instance=ExtResource("4_y0n2o")]
+position = Vector2(590, -19)
+
+[node name="Frog" parent="Enemies" index="7" instance=ExtResource("5_l3ogg")]
+position = Vector2(1299, -247)
+
+[node name="Frog2" parent="Enemies" index="8" instance=ExtResource("5_l3ogg")]
+position = Vector2(1494, -99)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjv8h6gcpapj6"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tjvn8"]
+
+[node name="Bunny" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_tjvn8")
+advance_expression_base_node = NodePath("..")
